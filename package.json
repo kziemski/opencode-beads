@@ -2,7 +2,7 @@
   "name": "opencode-beads",
   "version": "0.29.0",
   "type": "module",
-  "description": "OpenCode plugin for beads issue tracker integration",
+  "description": "A plugin for OpenCode that provides integration with the beads issue tracker.",
   "author": "Josh Thomas <josh@joshthomas.dev>",
   "license": "MIT",
   "repository": {
