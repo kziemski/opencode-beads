@@ -18,6 +18,10 @@ and this project attempts to adhere to [Semantic Versioning](https://semver.org/
 
 ## [Unreleased]
 
+### Changed
+
+- Bumped beads version to 0.30.3
+
 ## [0.2.1]
 
 ### Changed
