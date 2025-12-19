@@ -236,7 +236,7 @@ async function createBeadsIssue(
   const notes = `OpenCode todo ID: ${todo.id}`;
 
   try {
-    const result = await $`bd create ${todo.content} -t task -p ${priority} --parent ${sessionIssueID} --notes ${notes} --json`.json();
+    const result = await $`bd create ${todo.content} -t task -p ${priority} --parent ${sessionIssueID} -d ${notes} --json`.json();
 
     // If todo is already in_progress, update status
     if (todo.status === "in_progress") {
@@ -400,9 +400,8 @@ This version syncs todos to beads for persistence across sessions.`,
       const todos = params.todos as TodoItem[];
 
       // Sync to beads (fire and forget to not block the tool response)
-      syncTodosToBeads($, ctx.sessionID, todos).catch((err) => {
-        console.error("[beads-plugin] Failed to sync todos to beads:", err);
-      });
+      // Errors are silently ignored - beads sync is best-effort
+      syncTodosToBeads($, ctx.sessionID, todos).catch(() => {});
 
       // Return JSON array of todos - this becomes part.state.output
       // which the ACP parses directly for sidebar display
