@@ -12,13 +12,17 @@ curl -fsSL https://raw.githubusercontent.com/steveyegge/beads/main/scripts/insta
 
 See the [beads installation guide](https://github.com/steveyegge/beads/blob/main/docs/INSTALLING.md) for alternative methods (Homebrew, Windows, AUR, etc.).
 
-Add to your `opencode.json`:
+Add to your OpenCode config (`~/.config/opencode/opencode.json`):
 
 ```json
 {
-  "plugin": ["opencode-beads"]
+  "plugin": ["opencode-beads@0.3.0"]
 }
 ```
+
+Restart OpenCode and you're ready to go.
+
+Pin to a specific version to ensure updates work correctly - OpenCode's lockfile won't re-resolve unpinned versions. To upgrade, change the version and restart.
 
 ## Features
 
