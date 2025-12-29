@@ -30,7 +30,8 @@ fi
 
 CHANGELOG="$PLUGIN_DIR/CHANGELOG.md"
 
-if sed -n '/^## \[Unreleased\]$/,/^## \[/p' "$CHANGELOG" | grep -q "^### Changed$"; then
+UNRELEASED_SECTION=$(sed -n '/^## \[Unreleased\]$/,/^## \[/p' "$CHANGELOG")
+if echo "$UNRELEASED_SECTION" | grep -q "^### Changed$"; then
   sed -i "/^## \[Unreleased\]$/,/^## \[/ {
     /^### Changed$/a\\
 - Synced vendored beads files to $BEADS_VERSION
@@ -57,8 +58,10 @@ git -C "$PLUGIN_DIR" commit -m "sync: beads $BEADS_VERSION"
 git -C "$PLUGIN_DIR" push -f origin "$BRANCH"
 
 if command -v gh &> /dev/null; then
-  gh pr list --head "$BRANCH" --json number --jq 'length' | grep -q '^0$' && \
+  PR_COUNT=$(gh pr list --head "$BRANCH" --json number --jq 'length')
+  if [[ "$PR_COUNT" == "0" ]]; then
     gh pr create \
       --title "sync: beads $BEADS_VERSION" \
       --body "Automated sync of vendored beads files to $BEADS_VERSION" || true
+  fi
 fi
